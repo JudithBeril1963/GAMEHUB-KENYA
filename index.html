@@ -382,9 +382,9 @@ footer{border-top:1px solid var(--line); padding:48px 0 28px; margin-top:20px;}
       </div>
 
       <div class="hero-collage">
-        <div class="collage-card c1"><img src="https://picsum.photos/seed/gamehub-hero1/420/540" alt="Board game night in Nairobi"></div>
-        <div class="collage-card c2"><img src="https://picsum.photos/seed/gamehub-hero2/380/380" alt="Chess set close up"></div>
-        <div class="collage-card c3"><img src="https://picsum.photos/seed/gamehub-hero3/300/300" alt="Card game in play"></div>
+        <div class="collage-card c1"><img src="images/hero-games.jpg" alt="Board game night in Nairobi"></div>
+        <div class="collage-card c2"><img src="images/game-chess.jpg" alt="Chess set close up"></div>
+        <div class="collage-card c3"><img src="images/game-party.jpg" alt="Card game in play"></div>
         <div class="pip-float" style="top:190px; left:150px;">6</div>
         <div class="pip-float p2" style="bottom:60px; right:10px;">▲</div>
       </div>
@@ -651,13 +651,13 @@ footer{border-top:1px solid var(--line); padding:48px 0 28px; margin-top:20px;}
         <span class="tag">Current rentals</span>
         <div style="margin-top:14px;">
           <div class="rental-card">
-            <img src="https://picsum.photos/seed/gamehub-r1/100/100">
+            <img src="images/game-kenya.jpg">
             <div class="info"><b>Kenya @50 Edition</b><span>Due back 22 Jul 2026 · Qty 1</span></div>
             <span class="status-chip">On time</span>
             <button class="btn btn-ghost btn-sm" style="margin-left:14px;">Extend</button>
           </div>
           <div class="rental-card">
-            <img src="https://picsum.photos/seed/gamehub-r2/100/100">
+            <img src="images/game-party.jpg">
             <div class="info"><b>Exploding Kittens</b><span>Due back 20 Jul 2026 · Qty 2</span></div>
             <span class="status-chip" style="background:rgba(227,167,59,0.18); color:var(--clay);">Due soon</span>
             <button class="btn btn-ghost btn-sm" style="margin-left:14px;">Extend</button>
@@ -711,6 +711,20 @@ const hosts = [
   {id:3, title:'Tournament Referee — Alex O.', cat:'Referee', img:'gh-h3', rating:'4.8', players:'Certified WCF', time:'KSh 2,000/hr', diff:'', age:'', daily:0,weekend:0,weekly:0,deposit:0, isHost:true},
 ];
 
+/* Maps each game/host's `img` key to a real local photo — chosen by category
+   so the card actually reflects the game instead of a random stock photo. */
+const imageMap = {
+  'gh-g1': 'images/game-kenya.jpg',   // Kenya @50 Edition — Kenyan Games
+  'gh-g2': 'images/game-family.jpg',  // Bibleopoly — Christian / family table
+  'gh-g3': 'images/game-chess.jpg',   // Tournament Chess Set — Strategy
+  'gh-g4': 'images/game-party.jpg',   // Exploding Kittens — Party
+  'gh-g5': 'images/game-kenya.jpg',   // Sheng Edition Trivia — Kenyan Games
+  'gh-g6': 'images/hero-games.jpg',   // Bao / Mancala Set — Strategy
+  'gh-h1': 'images/game-chess.jpg',   // Chess Instructor
+  'gh-h2': 'images/game-family.jpg',  // Team-Building Facilitator
+  'gh-h3': 'images/game-chess.jpg',   // Tournament Referee
+};
+
 let currentGame = games[0];
 let qty = 1;
 
@@ -726,7 +740,7 @@ function gameCardHTML(g, seedPrefix){
   return `
     <div class="game-card" onclick="openGame(${g.id})">
       <div class="thumb">
-        <img src="https://picsum.photos/seed/${seedPrefix}${g.id}/440/320" alt="${g.title}">
+        <img src="${imageMap[g.img] || 'images/hero-games.jpg'}" alt="${g.title}">
         <span class="badge">${g.cat}</span>
         <div class="fav">♥</div>
       </div>
@@ -747,8 +761,9 @@ function renderGrids(){
 function openGame(id){
   const g = games.find(x=>x.id===id) || games[0];
   currentGame = g; qty = 1;
-  document.getElementById('gdMainImg').src = `https://picsum.photos/seed/gamehub-g${g.id}/800/560`;
-  document.getElementById('gdThumbs').innerHTML = [1,2,3].map(n=>`<img src="https://picsum.photos/seed/gamehub-g${g.id}-${n}/160/160" class="${n===1?'active':''}" onclick="swapMain(this,${g.id},${n})">`).join('');
+  const mainSrc = imageMap[g.img] || 'images/hero-games.jpg';
+  document.getElementById('gdMainImg').src = mainSrc;
+  document.getElementById('gdThumbs').innerHTML = [1,2,3].map(n=>`<img src="${mainSrc}" class="${n===1?'active':''}" onclick="swapMain(this,'${mainSrc}')">`).join('');
   document.getElementById('gdCategory').textContent = g.cat;
   document.getElementById('gdTitle').textContent = g.title;
   document.getElementById('gdRating').textContent = `★ ${g.rating} (128 reviews)`;
@@ -765,13 +780,13 @@ function openGame(id){
   updateTotal();
   const others = games.filter(x=>x.id!==g.id).slice(0,4);
   document.getElementById('frtRow').innerHTML = others.map(o=>`
-    <div class="frt-card" onclick="openGame(${o.id})"><img src="https://picsum.photos/seed/gamehub-g${o.id}/300/220"><p>${o.title}</p></div>
+    <div class="frt-card" onclick="openGame(${o.id})"><img src="${imageMap[o.img] || 'images/hero-games.jpg'}"><p>${o.title}</p></div>
   `).join('');
   showScreen('game');
 }
 
-function swapMain(el,id,n){
-  document.getElementById('gdMainImg').src = `https://picsum.photos/seed/gamehub-g${id}-${n}/800/560`;
+function swapMain(el,src){
+  document.getElementById('gdMainImg').src = src;
   document.querySelectorAll('.gd-thumbs img').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
 }
