@@ -16,6 +16,8 @@
   --gold-soft:#F0C878;
   --clay:#B8503A;
   --acacia:#3C6E52;
+  --cta:#E5502B;
+  --cta-dark:#C73E1D;
   --charcoal:#23201B;
   --line:rgba(20,24,26,0.12);
   --line-dark:rgba(246,240,228,0.14);
@@ -83,8 +85,8 @@ nav.topnav{
   transition:transform .18s ease, box-shadow .18s ease, background .2s;
   white-space:nowrap;
 }
-.btn-primary{background:var(--gold); color:var(--ink);}
-.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(227,167,59,0.55);}
+.btn-primary{background:var(--cta); color:#fff;}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(229,80,43,0.55); background:var(--cta-dark);}
 .btn-ghost{border:1px solid var(--line);}
 .btn-ghost:hover{background:var(--line);}
 .btn-dark{background:var(--ink); color:var(--cream);}
@@ -111,18 +113,31 @@ nav.topnav{
 .hstat b{font-family:'Fraunces',serif; font-size:26px; display:block;}
 .hstat span{font-size:12.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em;}
 
-.hero-collage{position:relative; height:440px;}
-.collage-card{
-  position:absolute; border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
-  border:6px solid var(--bg-panel);
+.hero h1 .hl-clay{color:var(--clay);}
+.hero h1 .hl-acacia{color:var(--acacia);}
+.chip-rail{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+.event-chip{
+  display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg-panel); font-size:13.5px; font-weight:500; color:var(--text-dim);
+  transition:.2s;
 }
-.collage-card img{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.03);}
-.c1{width:230px; height:290px; top:0; right:40px; transform:rotate(4deg); z-index:2;}
-.c2{width:190px; height:190px; bottom:10px; right:230px; transform:rotate(-6deg); z-index:1;}
-.c3{width:150px; height:150px; top:60px; left:0; transform:rotate(-4deg); z-index:1;}
-.pip-float{position:absolute; width:44px; height:44px; border-radius:12px; background:var(--gold); box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; color:var(--ink); animation:float 5s ease-in-out infinite;}
-.pip-float.p2{background:var(--acacia); color:var(--cream); animation-delay:1.2s;}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-14px) rotate(8deg);}}
+.event-chip:hover{border-color:var(--clay); color:var(--text);}
+.searchbar .go-btn{border-radius:999px; margin:0 2px 0 4px; padding:11px 22px; flex:none; align-self:center;}
+
+.hero-image{position:relative; border-radius:28px; overflow:hidden; box-shadow:var(--shadow); aspect-ratio:1/0.86;}
+.hero-image img{width:100%; height:100%; object-fit:cover; filter:saturate(1.08) contrast(1.03);}
+.hero-float-badge{
+  position:absolute; top:20px; left:20px; display:flex; align-items:center; gap:8px;
+  background:rgba(246,240,228,0.92); backdrop-filter:blur(8px); color:var(--ink);
+  padding:9px 16px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:var(--shadow);
+}
+.hero-caption{
+  position:absolute; left:20px; bottom:20px; background:rgba(246,240,228,0.95); backdrop-filter:blur(8px);
+  border-radius:16px; padding:12px 18px; box-shadow:var(--shadow); color:var(--ink);
+}
+.hero-caption .tiny{display:block; font-size:11.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px;}
+.hero-caption b{font-family:'Fraunces',serif; font-size:16px;}
+@media (max-width:860px){ .hero-image{aspect-ratio:1/0.7; margin-top:24px;} }
 
 /* search bar */
 .searchbar{
@@ -133,9 +148,9 @@ nav.topnav{
 .searchbar .sfield:last-of-type{border-right:none;}
 .searchbar .sfield label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-dim); margin-bottom:2px;}
 .searchbar select, .searchbar input{border:none; background:none; color:var(--text); font-family:inherit; font-size:14px; width:100%; outline:none;}
-.searchbar .go{background:var(--gold); color:var(--ink); border-radius:999px; width:46px; height:46px; display:flex; align-items:center; justify-content:center; flex:none; align-self:center; margin-right:2px; transition:.2s;}
+.searchbar .go{background:var(--cta); color:#fff; border-radius:999px; width:46px; height:46px; display:flex; align-items:center; justify-content:center; flex:none; align-self:center; margin-right:2px; transition:.2s;}
 .searchbar .go:hover{transform:scale(1.06);}
-@media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} .hero-collage{height:320px; margin-top:20px;} }
+@media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
 
 /* ---------- SECTION generic ---------- */
 section{padding:72px 0;}
@@ -166,17 +181,16 @@ section{padding:72px 0;}
 .game-card .thumb{height:190px; position:relative; overflow:hidden;}
 .game-card .thumb img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
 .game-card:hover .thumb img{transform:scale(1.07);}
-.badge{position:absolute; top:12px; left:12px; background:rgba(20,24,26,0.75); color:var(--cream); font-size:11px; padding:5px 10px; border-radius:999px; font-family:'IBM Plex Mono',monospace; letter-spacing:.03em;}
-.fav{position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.85); display:flex; align-items:center; justify-content:center;}
-.game-card .body{padding:18px 18px 20px;}
-.game-card .row1{display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:6px;}
-.game-card h4{font-size:17px;}
-.rating{display:flex; align-items:center; gap:4px; font-size:12.5px; color:var(--text-dim); flex:none;}
-.meta-row{display:flex; gap:14px; font-size:12.5px; color:var(--text-dim); margin:10px 0 14px;}
+.badge{position:absolute; top:12px; left:12px; background:rgba(246,240,228,0.92); backdrop-filter:blur(6px); color:var(--ink); font-size:12px; font-weight:600; padding:6px 12px; border-radius:999px;}
+.fav{position:absolute; top:12px; right:12px; background:rgba(246,240,228,0.92); backdrop-filter:blur(6px); font-size:12.5px; font-weight:600; padding:6px 11px; border-radius:999px; display:flex; align-items:center; gap:4px; color:var(--ink);}
+.game-card .body{padding:16px 18px 20px;}
+.game-card h4{font-size:17px; margin-bottom:8px;}
+.meta-row{display:flex; gap:14px; font-size:12.5px; color:var(--text-dim); margin:0 0 14px;}
 .meta-row span{display:flex; align-items:center; gap:5px;}
-.price-row{display:flex; align-items:baseline; justify-content:space-between; padding-top:12px; border-top:1px dashed var(--line);}
-.price-row .price{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px;}
-.price-row .price small{color:var(--text-dim); font-weight:400; font-size:11.5px;}
+.price-row{display:flex; align-items:baseline; justify-content:space-between;}
+.price-row .price-wrap{display:flex; flex-direction:column;}
+.price-row .price-wrap small{color:var(--text-dim); font-weight:400; font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
+.price-row .price{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:16px;}
 
 /* mancala track (signature element) */
 .track-wrap{position:relative; padding:40px 0 10px;}
@@ -356,37 +370,36 @@ footer{border-top:1px solid var(--line); padding:48px 0 28px; margin-top:20px;}
   <header class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">● Nairobi • Delivered in 48hrs or less</div>
-        <h1>Rent Amazing Board Games <em>For Your Next Event.</em></h1>
-        <p class="lead">From campus game nights to church fellowships and corporate team-buildings — borrow the games, skip the shelf space. 400+ titles, delivered across Nairobi.</p>
+        <h1>Rent amazing <span class="hl-clay">board</span> <span class="hl-acacia">games</span> for your next event.</h1>
+        <p class="lead">From Kenya @50 to Tournament Chess — book by the hour, day, or week. Delivered across Nairobi, campuses, churches, and offices.</p>
 
         <div class="searchbar">
-          <div class="sfield"><label>Game or category</label><input type="text" placeholder="e.g. Kenya @50, Chess..."></div>
+          <div class="sfield"><label>Search</label><input type="text" placeholder="Search chess, UNO..."></div>
           <div class="sfield"><label>Players</label>
-            <select><option>Any group size</option><option>2–4 players</option><option>5–8 players</option><option>9+ players</option></select>
-          </div>
-          <div class="sfield"><label>Event type</label>
-            <select><option>Any event</option><option>Birthday</option><option>Church fellowship</option><option>Corporate</option><option>Campus night</option></select>
+            <select><option>Players</option><option>2–4 players</option><option>5–8 players</option><option>9+ players</option></select>
           </div>
           <div class="sfield"><label>Location</label>
-            <select><option>Nairobi & environs</option><option>Westlands</option><option>Kilimani</option><option>CBD</option><option>Karen</option></select>
+            <select><option>Nairobi</option><option>Westlands</option><option>Kilimani</option><option>CBD</option><option>Karen</option></select>
           </div>
-          <button class="go" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+          <button class="btn btn-primary go-btn" title="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Search</button>
         </div>
 
-        <div class="hero-stats">
-          <div class="hstat"><b>400+</b><span>Games in rotation</span></div>
-          <div class="hstat"><b>65</b><span>Universities &amp; churches</span></div>
-          <div class="hstat"><b>4.9★</b><span>Average rating</span></div>
+        <div class="chip-rail">
+          <span class="event-chip">📅 Birthday</span>
+          <span class="event-chip">📅 Church fellowship</span>
+          <span class="event-chip">📅 Corporate team building</span>
+          <span class="event-chip">📅 Campus night</span>
+          <span class="event-chip">📅 Family weekend</span>
         </div>
       </div>
 
-      <div class="hero-collage">
-        <div class="collage-card c1"><img src="images/hero-games.jpg" alt="Board game night in Nairobi"></div>
-        <div class="collage-card c2"><img src="images/game-chess.jpg" alt="Chess set close up"></div>
-        <div class="collage-card c3"><img src="images/game-party.jpg" alt="Card game in play"></div>
-        <div class="pip-float" style="top:190px; left:150px;">6</div>
-        <div class="pip-float p2" style="bottom:60px; right:10px;">▲</div>
+      <div class="hero-image">
+        <img src="images/hero-games.jpg" alt="Colourful spread of board games, chess and cards">
+        <div class="hero-float-badge">✨ Weekend picks</div>
+        <div class="hero-caption">
+          <span class="tiny">Available today</span>
+          <b>Kenya @50 · KSh 800/day</b>
+        </div>
       </div>
     </div>
   </header>
@@ -742,12 +755,15 @@ function gameCardHTML(g, seedPrefix){
       <div class="thumb">
         <img src="${imageMap[g.img] || 'images/hero-games.jpg'}" alt="${g.title}">
         <span class="badge">${g.cat}</span>
-        <div class="fav">♥</div>
+        <div class="fav">★ ${g.rating}</div>
       </div>
       <div class="body">
-        <div class="row1"><h4>${g.title}</h4><div class="rating">★ ${g.rating}</div></div>
+        <h4>${g.title}</h4>
         <div class="meta-row"><span>👥 ${g.players}</span><span>⏱ ${g.time}</span></div>
-        <div class="price-row"><span class="price">KSh ${g.daily || g.time}<small> ${g.daily? '/day':''}</small></span>${g.isHost ? '' : '<button class=\"btn btn-ghost btn-sm\">Rent</button>'}</div>
+        <div class="price-row">
+          <div class="price-wrap"><small>${g.daily ? 'from' : ''}</small><span class="price">${g.daily ? 'KSh ' + g.daily.toLocaleString() + '<small>/day</small>' : g.time}</span></div>
+          ${g.isHost ? '' : '<button class=\"btn btn-primary btn-sm\">Rent</button>'}
+        </div>
       </div>
     </div>
   `;
