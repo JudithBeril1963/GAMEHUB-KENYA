@@ -394,11 +394,11 @@ footer{border-top:1px solid var(--line); padding:48px 0 28px; margin-top:20px;}
       </div>
 
       <div class="hero-image">
-        <img src="images/hero-games.jpg" alt="Colourful spread of board games, chess and cards">
+        <img src="hero-games.jpg" alt="Colourful spread of board games, chess and cards">
         <div class="hero-float-badge">✨ Weekend picks</div>
         <div class="hero-caption">
-          <span class="tiny">Available today</span>
-          <b>Kenya @50 · KSh 800/day</b>
+          <span class="tiny">GameHub Kenya</span>
+          <b>400+ games, delivered across Nairobi</b>
         </div>
       </div>
     </div>
@@ -664,13 +664,13 @@ footer{border-top:1px solid var(--line); padding:48px 0 28px; margin-top:20px;}
         <span class="tag">Current rentals</span>
         <div style="margin-top:14px;">
           <div class="rental-card">
-            <img src="images/game-kenya.jpg">
+            <img src="game-kenya.jpg">
             <div class="info"><b>Kenya @50 Edition</b><span>Due back 22 Jul 2026 · Qty 1</span></div>
             <span class="status-chip">On time</span>
             <button class="btn btn-ghost btn-sm" style="margin-left:14px;">Extend</button>
           </div>
           <div class="rental-card">
-            <img src="images/game-party.jpg">
+            <img src="game-party.jpg">
             <div class="info"><b>Exploding Kittens</b><span>Due back 20 Jul 2026 · Qty 2</span></div>
             <span class="status-chip" style="background:rgba(227,167,59,0.18); color:var(--clay);">Due soon</span>
             <button class="btn btn-ghost btn-sm" style="margin-left:14px;">Extend</button>
@@ -727,15 +727,15 @@ const hosts = [
 /* Maps each game/host's `img` key to a real local photo — chosen by category
    so the card actually reflects the game instead of a random stock photo. */
 const imageMap = {
-  'gh-g1': 'images/game-kenya.jpg',   // Kenya @50 Edition — Kenyan Games
-  'gh-g2': 'images/game-family.jpg',  // Bibleopoly — Christian / family table
-  'gh-g3': 'images/game-chess.jpg',   // Tournament Chess Set — Strategy
-  'gh-g4': 'images/game-party.jpg',   // Exploding Kittens — Party
-  'gh-g5': 'images/game-kenya.jpg',   // Sheng Edition Trivia — Kenyan Games
-  'gh-g6': 'images/hero-games.jpg',   // Bao / Mancala Set — Strategy
-  'gh-h1': 'images/game-chess.jpg',   // Chess Instructor
-  'gh-h2': 'images/game-family.jpg',  // Team-Building Facilitator
-  'gh-h3': 'images/game-chess.jpg',   // Tournament Referee
+  'gh-g1': 'game-kenya.jpg',   // Kenya @50 Edition — Kenyan Games
+  'gh-g2': 'game-family.jpg',  // Bibleopoly — Christian / family table
+  'gh-g3': 'game-chess.jpg',   // Tournament Chess Set — Strategy
+  'gh-g4': 'game-party.jpg',   // Exploding Kittens — Party
+  'gh-g5': 'game-kenya.jpg',   // Sheng Edition Trivia — Kenyan Games
+  'gh-g6': 'hero-games.jpg',   // Bao / Mancala Set — Strategy
+  'gh-h1': 'game-chess.jpg',   // Chess Instructor
+  'gh-h2': 'game-family.jpg',  // Team-Building Facilitator
+  'gh-h3': 'game-chess.jpg',   // Tournament Referee
 };
 
 let currentGame = games[0];
@@ -753,7 +753,7 @@ function gameCardHTML(g, seedPrefix){
   return `
     <div class="game-card" onclick="openGame(${g.id})">
       <div class="thumb">
-        <img src="${imageMap[g.img] || 'images/hero-games.jpg'}" alt="${g.title}">
+        <img src="${imageMap[g.img] || 'hero-games.jpg'}" alt="${g.title}">
         <span class="badge">${g.cat}</span>
         <div class="fav">★ ${g.rating}</div>
       </div>
@@ -777,7 +777,7 @@ function renderGrids(){
 function openGame(id){
   const g = games.find(x=>x.id===id) || games[0];
   currentGame = g; qty = 1;
-  const mainSrc = imageMap[g.img] || 'images/hero-games.jpg';
+  const mainSrc = imageMap[g.img] || 'hero-games.jpg';
   document.getElementById('gdMainImg').src = mainSrc;
   document.getElementById('gdThumbs').innerHTML = [1,2,3].map(n=>`<img src="${mainSrc}" class="${n===1?'active':''}" onclick="swapMain(this,'${mainSrc}')">`).join('');
   document.getElementById('gdCategory').textContent = g.cat;
@@ -796,7 +796,7 @@ function openGame(id){
   updateTotal();
   const others = games.filter(x=>x.id!==g.id).slice(0,4);
   document.getElementById('frtRow').innerHTML = others.map(o=>`
-    <div class="frt-card" onclick="openGame(${o.id})"><img src="${imageMap[o.img] || 'images/hero-games.jpg'}"><p>${o.title}</p></div>
+    <div class="frt-card" onclick="openGame(${o.id})"><img src="${imageMap[o.img] || 'hero-games.jpg'}"><p>${o.title}</p></div>
   `).join('');
   showScreen('game');
 }
